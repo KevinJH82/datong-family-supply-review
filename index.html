@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>大同家庭补货助手</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>大同家庭补货助手</strong>
+          <small>家庭库存管家 · 预售采购 · 私聊确认</small>
+        </div>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-btn" data-view="home">首页</button>
+        <button class="nav-btn active" data-view="assessment">测评</button>
+        <button class="nav-btn" data-view="pricing">成本表</button>
+        <button class="nav-btn" data-view="content">内容库</button>
+        <button class="nav-btn" data-view="admin">线索</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="view">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">大同家庭囤货测评</span>
+            <h1>先看本周好物，再生成你的补货清单</h1>
+            <p>
+              瑞士卷、烤鸡、零食饮品和家庭日用按预算组合。不是普通代购清单，而是帮你少买错、少浪费。
+            </p>
+            <div class="actions">
+              <button class="primary" data-go="assessment">开始家庭测评</button>
+              <button class="secondary" data-go="content">查看线上获客素材</button>
+            </div>
+          </div>
+          <div class="hero-panel product-wall" aria-label="本周商品预览">
+            <figure class="feature-product large">
+              <img src="./assets/swiss-roll.jpg" alt="山姆瑞士卷商品图" />
+              <figcaption>
+                <strong>瑞士卷</strong>
+                <span>下午茶/有娃家庭高传播款</span>
+              </figcaption>
+            </figure>
+            <div class="product-stack">
+              <figure class="feature-product">
+                <img src="./assets/rotisserie-chicken.jpg" alt="山姆烤鸡商品图" />
+                <figcaption>
+                  <strong>烤鸡熟食</strong>
+                  <span>家庭餐桌引流款</span>
+                </figcaption>
+              </figure>
+              <figure class="feature-product">
+                <img src="./assets/membermark-chips.jpg" alt="Member's Mark 零食商品图" />
+                <figcaption>
+                  <strong>MM 零食</strong>
+                  <span>办公室/家庭囤货款</span>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2>先用商品激发兴趣</h2>
+          <p>页面要让用户感到“这周真的有东西值得买”，测评只是把购买欲变成可成交线索。</p>
+        </div>
+        <div id="homeProducts" class="product-grid"></div>
+
+        <div class="section-head">
+          <h2>首版只验证这条链路</h2>
+          <p>内容平台引流，小程序测评筛选，私聊确认成交，固定采购日履约。</p>
+        </div>
+        <div class="flow">
+          <article>
+            <span>01</span>
+            <h3>内容搜索</h3>
+            <p>小红书/抖音发布大同家庭囤货、预算清单、避坑内容。</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>测评筛选</h3>
+            <p>用户填写家庭人数、孩子年龄、预算、忌口和收货区域。</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>私聊确认</h3>
+            <p>按推荐套餐沟通替换品、冷链风险和固定到货时间。</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>复购提醒</h3>
+            <p>沉淀家庭档案，下月按历史清单提醒补货。</p>
+          </article>
+        </div>
+
+        <div class="packages">
+          <article>
+            <small>试单</small>
+            <h3>99 元试补货</h3>
+            <p>5-8 件高复购商品，用来降低首次尝试门槛。</p>
+          </article>
+          <article>
+            <small>主力</small>
+            <h3>399/699/999 元补货包</h3>
+            <p>按真实采购价和履约成本配货，不让用户逐个 SKU 比价。</p>
+          </article>
+          <article>
+            <small>复购</small>
+            <h3>月度补货会员</h3>
+            <p>每月一次专属清单、采购提醒和缺货替换优先权。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="assessment" class="view active-view">
+        <div class="section-head">
+          <h2>家庭补货测评</h2>
+          <p>先看本周可选好物，再填写家庭情况。提交后生成预算建议，并把意向单保存到线索后台。</p>
+        </div>
+        <div id="assessmentProducts" class="product-grid compact"></div>
+        <form id="assessmentForm" class="form-shell">
+          <div class="form-grid">
+            <label>
+              微信号
+              <input name="wechat" type="text" placeholder="用于私聊确认" required />
+            </label>
+            <label>
+              收货区域
+              <select name="area" required>
+                <option value="">请选择</option>
+                <option>平城区</option>
+                <option>云冈区</option>
+                <option>云州区</option>
+                <option>新荣区</option>
+                <option>其他大同区域</option>
+              </select>
+            </label>
+            <label>
+              家庭人数
+              <select name="familySize" required>
+                <option value="">请选择</option>
+                <option value="2">2 人</option>
+                <option value="3">3 人</option>
+                <option value="4">4 人</option>
+                <option value="5">5 人及以上</option>
+              </select>
+            </label>
+            <label>
+              孩子年龄
+              <select name="childAge" required>
+                <option value="">请选择</option>
+                <option>暂无孩子</option>
+                <option>0-3 岁</option>
+                <option>4-6 岁</option>
+                <option>7-12 岁</option>
+                <option>13 岁以上</option>
+              </select>
+            </label>
+            <label>
+              月度预算
+              <select name="budget" required>
+                <option value="">请选择</option>
+                <option value="399">399 元起轻补货</option>
+                <option value="699">699 元起家庭囤货</option>
+                <option value="999">999 元起省心补货</option>
+                <option value="custom">需要单独报价</option>
+              </select>
+            </label>
+            <label>
+              冷链接受度
+              <select name="coldChain" required>
+                <option value="">请选择</option>
+                <option>先不做冷链</option>
+                <option>少量冷藏可接受</option>
+                <option>冷冻冷藏都可以</option>
+              </select>
+            </label>
+          </div>
+
+          <fieldset>
+            <legend>常购品类</legend>
+            <div class="chips">
+              <label><input type="checkbox" name="categories" value="早餐" />早餐</label>
+              <label><input type="checkbox" name="categories" value="儿童零食" />儿童零食</label>
+              <label><input type="checkbox" name="categories" value="饮品" />饮品</label>
+              <label><input type="checkbox" name="categories" value="纸品" />纸品</label>
+              <label><input type="checkbox" name="categories" value="清洁日用" />清洁日用</label>
+              <label><input type="checkbox" name="categories" value="宠物用品" />宠物用品</label>
+            </div>
+          </fieldset>
+
+          <label>
+            忌口/偏好/备注
+            <textarea name="notes" rows="4" placeholder="例如：少糖、不吃坚果、孩子上小学、家里储物空间有限"></textarea>
+          </label>
+
+          <button class="primary full" type="submit">生成补货建议并提交意向</button>
+        </form>
+
+        <div id="result" class="result hidden" aria-live="polite"></div>
+      </section>
+
+      <section id="content" class="view">
+        <div class="section-head">
+          <h2>线上内容素材库</h2>
+          <p>围绕搜索词做决策型内容，不和普通代购比低价。</p>
+        </div>
+        <div id="contentGrid" class="content-grid"></div>
+      </section>
+
+      <section id="pricing" class="view">
+        <div class="section-head">
+          <h2>真实落地成本表</h2>
+          <p>先录真实采购价和履约成本，再让系统按预算自动组合。公开参考价只用于试算，正式报价前必须改成实际采购价。</p>
+        </div>
+
+        <form id="costForm" class="form-shell">
+          <div class="form-grid">
+            <label>
+              采购城市
+              <input name="city" type="text" placeholder="北京/天津/太原" />
+            </label>
+            <label>
+              单单物流摊销
+              <input name="logisticsPerOrder" type="number" min="0" step="1" />
+            </label>
+            <label>
+              服务费率
+              <input name="serviceRate" type="number" min="0" max="1" step="0.01" />
+            </label>
+            <label>
+              损耗/售后预留
+              <input name="lossRate" type="number" min="0" max="1" step="0.01" />
+            </label>
+            <label>
+              冷链包装费
+              <input name="coldPackFee" type="number" min="0" step="1" />
+            </label>
+            <label>
+              缺货替换预留
+              <input name="reserveRate" type="number" min="0" max="1" step="0.01" />
+            </label>
+          </div>
+          <button class="primary full" type="submit">保存成本参数</button>
+        </form>
+
+        <div class="section-head">
+          <h2>SKU 采购价</h2>
+          <p>把价格改成当天山姆 App/门店实付价。只有启用的 SKU 会进入测评推荐。</p>
+        </div>
+        <div class="table-actions">
+          <button class="secondary" id="addSku" type="button">新增 SKU</button>
+          <button class="secondary" id="exportSkuCsv" type="button">导出 SKU CSV</button>
+          <button class="danger" id="resetSku" type="button">恢复参考价</button>
+        </div>
+        <div class="sku-table-wrap">
+          <table class="sku-table">
+            <thead>
+              <tr>
+                <th>启用</th>
+                <th>商品</th>
+                <th>品类</th>
+                <th>采购价</th>
+                <th>风险</th>
+                <th>来源备注</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="skuRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="admin" class="view">
+        <div class="section-head">
+          <h2>线索后台</h2>
+          <p>演示版数据保存在当前浏览器本地。迁移小程序后可接云开发数据库。</p>
+        </div>
+        <div class="admin-tools">
+          <select id="statusFilter" aria-label="状态筛选">
+            <option value="all">全部线索</option>
+            <option value="new">新线索</option>
+            <option value="contacted">已联系</option>
+            <option value="won">已成交</option>
+          </select>
+          <button class="secondary" id="exportCsv">导出 CSV</button>
+          <button class="danger" id="clearLeads">清空演示数据</button>
+        </div>
+        <div id="leadList" class="lead-list"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
