@@ -21,8 +21,6 @@
         <button class="nav-btn" data-view="pricing">成本表</button>
         <button class="nav-btn" data-view="content">内容库</button>
         <button class="nav-btn" data-view="admin">线索</button>
-        <a class="nav-link" href="./docs.html">方案</a>
-        <a class="nav-link" href="./BUSINESS_PLAN.md">商业计划书</a>
       </nav>
     </header>
 
@@ -258,8 +256,13 @@
         <div class="table-actions">
           <button class="secondary" id="addSku" type="button">新增 SKU</button>
           <button class="secondary" id="exportSkuCsv" type="button">导出 SKU CSV</button>
+          <label class="secondary file-action">
+            导入采价 CSV
+            <input id="importSkuCsv" type="file" accept=".csv,text/csv" />
+          </label>
           <button class="danger" id="resetSku" type="button">恢复参考价</button>
         </div>
+        <p class="lead-meta">CSV 字段：enabled,name,category,price,risk,note。采价必须以你实际采购城市山姆 App/小程序当天实付价为准。</p>
         <div class="sku-table-wrap">
           <table class="sku-table">
             <thead>

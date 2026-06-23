@@ -504,6 +504,79 @@ function exportSkuCsv() {
   downloadCsv("datong-family-supply-skus.csv", rows, headers);
 }
 
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    const next = text[i + 1];
+    if (quoted && char === '"' && next === '"') {
+      value += '"';
+      i += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      row.push(value);
+      value = "";
+    } else if ((char === "\n" || char === "\r") && !quoted) {
+      if (char === "\r" && next === "\n") i += 1;
+      row.push(value);
+      if (row.some((cell) => cell.trim())) rows.push(row);
+      row = [];
+      value = "";
+    } else {
+      value += char;
+    }
+  }
+  row.push(value);
+  if (row.some((cell) => cell.trim())) rows.push(row);
+  return rows;
+}
+
+function importSkuCsv(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    const rows = parseCsv(String(reader.result || ""));
+    if (rows.length < 2) {
+      alert("CSV 内容为空，至少需要表头和一行 SKU。");
+      return;
+    }
+    const headers = rows[0].map((cell) => cell.trim());
+    const required = ["name", "category", "price"];
+    const missing = required.filter((field) => !headers.includes(field));
+    if (missing.length) {
+      alert(`CSV 缺少字段：${missing.join("、")}`);
+      return;
+    }
+    const imported = rows.slice(1).map((cells, index) => {
+      const record = Object.fromEntries(headers.map((header, i) => [header, cells[i] || ""]));
+      return {
+        id: record.id || `sku-import-${Date.now()}-${index}`,
+        enabled: !["false", "0", "否", "no"].includes(String(record.enabled || "true").trim().toLowerCase()),
+        name: record.name.trim(),
+        category: record.category.trim() || "儿童零食",
+        price: Number(record.price) || 0,
+        risk: record.risk.trim() || "normal",
+        note: record.note.trim() || "山姆 App/小程序采价导入",
+        image: "./assets/membermark-chips.jpg",
+      };
+    }).filter((sku) => sku.name && sku.price > 0);
+
+    if (!imported.length) {
+      alert("没有可导入的有效 SKU。请检查 name 和 price。");
+      return;
+    }
+    saveSkus(imported);
+    renderPricing();
+    renderProducts();
+    alert(`已导入 ${imported.length} 个 SKU。`);
+  };
+  reader.readAsText(file, "utf-8");
+}
+
 function downloadCsv(filename, rows, headers) {
   const csv = [
     headers.join(","),
@@ -609,6 +682,11 @@ document.getElementById("statusFilter").addEventListener("change", renderLeads);
 document.getElementById("exportCsv").addEventListener("click", exportCsv);
 document.getElementById("addSku").addEventListener("click", addSku);
 document.getElementById("exportSkuCsv").addEventListener("click", exportSkuCsv);
+document.getElementById("importSkuCsv").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (file) importSkuCsv(file);
+  event.target.value = "";
+});
 document.getElementById("resetSku").addEventListener("click", () => {
   if (!confirm("确认恢复公开参考价？你已录入的 SKU 会被覆盖。")) return;
   saveSkus(defaultSkus);
