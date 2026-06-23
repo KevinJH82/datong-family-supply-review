@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>山姆采价与毛利预测</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>大同家庭补货助手</strong>
+          <small>山姆采价 · 毛利预测</small>
+        </div>
+      </div>
+      <nav class="nav" aria-label="文档导航">
+        <a class="nav-link" href="./docs.html">方案</a>
+        <a class="nav-link active" href="./sams-price.html">采价说明</a>
+        <a class="nav-link" href="./index.html">H5 原型</a>
+      </nav>
+    </header>
+
+    <main class="doc-main">
+      <section class="doc-hero">
+        <span class="eyebrow">Gross Margin</span>
+        <h1>山姆采价与毛利预测</h1>
+        <p>山姆价格依赖城市、门店、会员、库存和优惠状态。当前采用人工采价 CSV 导入方式，避免用不准确的第三方价格做决策。</p>
+        <div class="actions">
+          <a class="primary link-button" href="./data/sams_price_template.csv">下载 CSV 模板</a>
+          <a class="secondary link-button" href="./index.html">打开成本表</a>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>为什么不直接爬取</h2>
+        <p>山姆中国公开官网没有稳定开放商品搜索、畅销排序和价格数据。App/小程序商品价格通常需要定位、会员、库存和实时优惠状态。项目不绕过登录和平台限制，正式测算以你实际采购城市的山姆 App/小程序当天实付价为准。</p>
+      </section>
+
+      <section class="doc-section">
+        <h2>采价流程</h2>
+        <ol>
+          <li>打开山姆 App/小程序，切到实际采购城市/门店。</li>
+          <li>按零食、饮品、早餐、纸品、清洁日用、儿童食品、短保引流品采 30-50 个 SKU。</li>
+          <li>填入 CSV 模板：enabled,name,category,price,risk,note。</li>
+          <li>打开 H5 的“成本表”，导入采价 CSV。</li>
+          <li>更新物流摊销、服务费率、损耗预留、冷链包装费。</li>
+          <li>用 399/699/999 元起预算包试算毛利率。</li>
+        </ol>
+      </section>
+
+      <section class="doc-section">
+        <h2>优先采价品类</h2>
+        <div class="doc-grid">
+          <article><strong>零食</strong><span>坚果、薯片、饼干、肉脯、海苔、儿童零食</span></article>
+          <article><strong>饮品</strong><span>牛奶、酸奶、果汁、咖啡、气泡水</span></article>
+          <article><strong>早餐</strong><span>面包、麦片、谷物、蛋白棒、早餐组合</span></article>
+          <article><strong>纸品</strong><span>抽纸、卷纸、厨房纸</span></article>
+          <article><strong>清洁</strong><span>洗衣液、洗洁精、湿巾、垃圾袋</span></article>
+          <article><strong>引流品</strong><span>瑞士卷、麻薯、烤鸡、牛肉卷</span></article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>毛利判断线</h2>
+        <ul>
+          <li>低于 10%：不建议成交。</li>
+          <li>10%-12%：只适合作为获客试单。</li>
+          <li>12%-18%：可持续观察。</li>
+          <li>18% 以上：较好，但要复核是否低估履约和售后。</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
